@@ -31,6 +31,7 @@ include("largedeviations/geometric_min_action_method.jl")
 
 include("../systems/fitzhughnagumo.jl")
 include("../systems/truscottbrindley_mod.jl")
+include("../systems/truscottbrindley_mod_new.jl")
 include("../systems/truscottbrindley_orig.jl")
 include("../systems/truscottbrindley_orig1.jl")
 include("../systems/rooth.jl")
@@ -72,6 +73,7 @@ export cov_inv_along_path
 # Systems
 export fitzhugh_nagumo, fitzhugh_nagumo!, fhn_εσ, fhn_ϵσ_backward, rotated_fhn_Aϵσ, fhn_maier_stein_form_ϵσ
 export modifiedtruscottbrindley, modifiedtruscottbrindley!, modtb_αξσ, modtb_αξσ1, modtb_αξσ_backward
+export modtb_αξσρ, modtbOU_αξγμσρ
 export modifiedtruscottbrindley_OU, modifiedtruscottbrindley_OU!, modtbOU_αξγμσ, modtbOU_αξγμσ2
 export rampedmodifiedtruscottbrindley, modifiedtruscottbrindley!, rmodtb_ξvTtrTraσ
 export originaltruscottbrindley, originaltruscottbrindley!, origtb_rσ
