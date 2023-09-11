@@ -585,7 +585,7 @@ function transition_mf(sys::StochSystem, x_i::State, x_f::State;
     sim = simulate(sys, u0; dt, tmax = p_tmax, solver, callback=cb_exit, progress, save_everystep = false, save_start = false, kwargs...)
 
     T = sim.t[end]; # the total time of the run
-    u0 = sim.u[end]; # where the run terminated, which becomes the new initial condition
+    u0 = [sim.u[end-1],sim.u[end]]; # where the run terminated, which becomes the new initial condition
 
     exit = true; reentered = false; # if T < tmax we must have exited the neighbourhood 
     success = false; 
@@ -601,10 +601,10 @@ function transition_mf(sys::StochSystem, x_i::State, x_f::State;
             p_tmax = min(tmax*perc,tmax-T);
             sim = simulate(sys, u0; dt, tmax = p_tmax, solver, callback=cb_exit, progress, save_everystep = false, save_start = false, kwargs...); # overwrite the old solution
             T += sim.t[end]; # the new overall elapsed time
-            u0 = sim.u[end]; # where the run terminated, which becomes the new initial condition
+            u0 = [sim.u[end-1],sim.u[end]]; # where the run terminated, which becomes the new initial condition
             exit = true; reentered = false;  
         else #i.e. exit must be true 
-            sim = simulate(sys, u0; dt, tmax = min(Ttrans,tmax-T), solver, callback=cb_enter, progress, kwargs...); # overwrite the old solution
+            sim = simulate(sys, u0[2]; dt, tmax = min(Ttrans,tmax-T), solver, callback=cb_enter, progress, kwargs...); # overwrite the old solution
             T += sim.t[end]; # the new overall elapsed time
             u0 = sim.u[end]; # where the run terminated, which becomes the new initial condition
             if subnorm(u0 - x_i; directions=rad_dims) < rad_i # we have reentered the neighbourhood of the initial attractor
@@ -616,8 +616,13 @@ function transition_mf(sys::StochSystem, x_i::State, x_f::State;
         end
     end
 
-    translated_times = (T-sim.t[end]) .+ sim.t;
+    translated_times = (T-sim.t[end]) .+ sim.t; 
     statevars = reduce(hcat,[[sim.u[ii][jj] for ii in 1:length(sim.u)] for jj in 1:dim])';
+
+    if success # if the system transitioned, then we concatenate the state position just before it exited the neighbourhood around x_i
+        translated_times = vcat(translated_times,[T+dt]);
+        statevars = hcat(u0[1],statevars);
+    end
 
     statevars, translated_times, success
 
