@@ -1,5 +1,5 @@
 # Define custom types
-Parameters = Union{Vector{Any}, Nothing};
+Parameters = Union{Vector{Float64}, Nothing};
 CovMatrix = Union{Matrix, UniformScaling{Bool}, Diagonal{Bool, Vector{Bool}}};
 State = Union{Vector, SVector}
 
