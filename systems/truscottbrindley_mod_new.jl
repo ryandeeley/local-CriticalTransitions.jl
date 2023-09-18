@@ -1,4 +1,4 @@
-"""
+    """
 Dynamical systems specification file
 """
 
@@ -86,7 +86,7 @@ function modtb_αξσρ(α, ξ, σ, ρ) # a convenient four-parameter version of
     pg = nothing; 
     Σ = [1. ρ; ρ 1.];
     process = WienerProcess(0., u);
-    StochSystem(f, vcat([α], pf_wo_αξ, [ξ]), u, σ, g, pg, Σ, process)
+    StochSystem(f, Float64[[α];pf_wo_αξ;[ξ]], u, σ, g, pg, Σ, process)
 end;
 
 """
@@ -108,5 +108,5 @@ function modtbOU_αξγμσρ(α, ξ, γ, μ, σ, ρ; σₙ = 1., u0 = [0.,0.], 
         u0 = [u01,u02]; # overwriting the initial condition for the noise process
     end
     process = OrnsteinUhlenbeckProcess(γ, μ, σₙ.*σ, 0., u0);
-    StochSystem(f, vcat([α], pf_wo_αξ, [ξ]), u, 1., g, pg, Σ, process)
+    StochSystem(f, Float64[[α];pf_wo_αξ;[ξ]], u, 1., g, pg, Σ, process)
 end;
