@@ -61,7 +61,7 @@ export semitransition, semitransitions
 export langevinmcmc
 export fw_integrand, fw_action, om_action, action, geometric_action
 export min_action_method, geometric_min_action_method
-export edgetracking, bisect_to_edge, attractor_mapper
+export edgetracking, bisect_to_edge, bisect_to_edge2, attractor_mapper
 export idfunc, idfunc!
 export gauss
 export drift, is_iip
