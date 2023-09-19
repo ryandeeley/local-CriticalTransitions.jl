@@ -83,7 +83,7 @@ function modtb_αξσρ(α, ξ, σ, ρ) # a convenient four-parameter version of
     pf_wo_αξ = [β, γ, P₁, Z₁]; # parameters vector without α or ξ
     u = zeros(2);
     g(u,p,t) = [1/√ξ 0; 0 1.]*multiplicative_idx(u,p,t,[true,true]);
-    pg = nothing; 
+    pg = []; 
     Σ = [1. ρ; ρ 1.];
     process = WienerProcess(0., u);
     StochSystem(f, Float64[[α];pf_wo_αξ;[ξ]], u, σ, g, pg, Σ, process)
@@ -101,7 +101,7 @@ function modtbOU_αξγμσρ(α, ξ, γ, μ, σ, ρ; σₙ = 1., u0 = [0.,0.], 
     pf_wo_αξ = [β, γ1, P₁, Z₁]; # parameters vector without α or ξ
     u = zeros(4);
     g(u,p,t) = [0 0; 0 0; √((1+ρ)/2) √((1-ρ)/2); √((1+ρ)/2) -√((1-ρ)/2)];
-    pg = nothing; 
+    pg = []; 
     Σ = I(2);
     if stat_dist # prescribing initial conditions for the noise process from the stationary distribution
         u01 = μ[1] + randn()*σₙ*σ[1]/√(2*γ[1]); u02 = μ[2] + randn()*σₙ*σ[2]/√(2*γ[2]); # choosing initial conditions in the stationary regime
