@@ -28,8 +28,8 @@ function simulate(sys::StochSystem, init::State;
     noise_rate_prototype=zeros(length(sys.u),length(sys.u)),
     kwargs...)
 
-    prob = SDEProblem(sys.f, σg(sys), init, (0, tmax), p(sys); noise=stochprocess(sys), kwargs...)
-    solve(prob, solver; dt, callback, progress, noise_rate_prototype, kwargs...)
+    prob = SDEProblem(sys.f, σg(sys), init, (0, tmax), p(sys); noise=stochprocess(sys), noise_rate_prototype, kwargs...)
+    solve(prob, solver; dt, callback, progress, kwargs...)
 end;
 
 """
