@@ -3,12 +3,12 @@
 
 using RandomNumbers.Xorshifts
 
-"""
-    correlated_wienerprocess(sys::StochSystem)
-Returns a Wiener process with dimension `length(sys.u)` and covariance matrix `sys.Σ`.
+# """
+#     correlated_wienerprocess(sys::StochSystem)
+# Returns a Wiener process with dimension `length(sys.u)` and covariance matrix `sys.Σ`.
 
-This function is based on the [`CorrelatedWienerProcess`](https://noise.sciml.ai/stable/noise_processes/#DiffEqNoiseProcess.CorrelatedWienerProcess) of [`DiffEqNoiseProcess.jl`](https://noise.sciml.ai/stable/), a component of `DifferentialEquations.jl`. The initial condition of the process is set to the zero vector at `t=0`.
-"""
+# This function is based on the [`CorrelatedWienerProcess`](https://noise.sciml.ai/stable/noise_processes/#DiffEqNoiseProcess.CorrelatedWienerProcess) of [`DiffEqNoiseProcess.jl`](https://noise.sciml.ai/stable/), a component of `DifferentialEquations.jl`. The initial condition of the process is set to the zero vector at `t=0`.
+# """
 function correlated_wienerprocess(sys::StochSystem)
     # Returns a Wiener process for given covariance matrix and dimension of a StochSystem
     if is_iip(sys.f)
@@ -43,12 +43,12 @@ function CorrelatedOrnsteinUhlenbeckProcess(Σ::CovMatrix, ou::DiffEqNoiseProces
     NoiseProcess{false}(t0, W0, Z0, drift, bridge; rswm = RSWM(), rng)
 end
 
-"""
-    correlated_ornsteinuhlenbeckprocess(sys::StochSystem)
-Returns an Ornstein-Uhlenbeck process with dimension `length(sys.u)` and the covariance matrix `sys.Σ`.
+# """
+#     correlated_ornsteinuhlenbeckprocess(sys::StochSystem)
+# Returns an Ornstein-Uhlenbeck process with dimension `length(sys.u)` and the covariance matrix `sys.Σ`.
 
-This function is a custom noise process from the [`DiffEqNoiseProcess.jl``](https://docs.sciml.ai/DiffEqNoiseProcess/stable/) package. The initial condition of the process at `t = 0` is as prescribed (by the user) in the setup.
-"""
+# This function is a custom noise process from the [`DiffEqNoiseProcess.jl``](https://docs.sciml.ai/DiffEqNoiseProcess/stable/) package. The initial condition of the process at `t = 0` is as prescribed (by the user) in the setup.
+# """
 function correlated_ornsteinuhlenbeckprocess(sys::StochSystem)
     # Returns a Wiener process for given covariance matrix and dimension of a StochSystem
     if is_iip(sys.f)

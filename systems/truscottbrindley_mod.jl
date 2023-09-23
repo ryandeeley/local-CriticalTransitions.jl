@@ -35,12 +35,12 @@ function modifiedtruscottbrindleywithdimensions(u, p, t)
 end
 
 
-"""
-    modifiedtruscottbrindley!(du, u, p, t)
-In-place definition of the modified Truscott-Brindley system. 
+# """
+#     modifiedtruscottbrindley!(du, u, p, t)
+# In-place definition of the modified Truscott-Brindley system. 
 
-See also [`modifiedtruscottbrindley`](@ref).
-"""
+# See also [`modifiedtruscottbrindley`](@ref).
+# """
 function modifiedtruscottbrindley!(du, u, p, t)
     P, Z = u
     α, β, γ, P₁, Z₁, ξ = p[1]
@@ -49,12 +49,12 @@ function modifiedtruscottbrindley!(du, u, p, t)
     du[2] = ξ*Z₁* ((Z/Z₁)*(P/P₁)^2/(1+(P/P₁)^2)-(Z/Z₁)^2);
 end
 
-"""
-    modifiedtruscottbrindley(u, p, t)
-Out-of-place definition of the modified Truscott-Brindley system. 
+# """
+#     modifiedtruscottbrindley(u, p, t)
+# Out-of-place definition of the modified Truscott-Brindley system. 
 
-See also [`modifiedtruscottbrindley!`](@ref).
-"""
+# See also [`modifiedtruscottbrindley!`](@ref).
+# """
 function modifiedtruscottbrindley(u,p,t)
     P, Z = u
     α, β, γ, P₁, Z₁, ξ = p[1]
@@ -65,12 +65,12 @@ function modifiedtruscottbrindley(u,p,t)
     SVector{2}(dP, dZ)
 end
 
-"""
-    modifiedtruscottbrindley_OU!(u, p, t)
-In-place definition of the modified Truscott-Brindley system with correlated noise. 
+# """
+#     modifiedtruscottbrindley_OU!(u, p, t)
+# In-place definition of the modified Truscott-Brindley system with correlated noise. 
 
-See also [`modifiedtruscottbrindley_OU`](@ref).
-"""
+# See also [`modifiedtruscottbrindley_OU`](@ref).
+# """
 function modifiedtruscottbrindley_OU!(du,u,p,t)
     X₁, X₂, P, Z = u
     α, β, γ, P₁, Z₁, ξ = p[1]
