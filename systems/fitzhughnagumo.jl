@@ -58,7 +58,7 @@ A shortcut command for returning a StochSystem of the FitzHugh Nagumo system in 
     
 This setup fixes the parameters β = 3, α =  γ = κ = 1, I = 0 and leaves the value of the time-scale parameter ε as a function argument. The prescribed noise process is additive and isotropic: the variables are peturbed by independently drawn identical Gaussian white noise realisations, with standard deviation σ (the other function argument).
 """
-function fhn_εσ(ε, σ) # a convenient two-parameter version of the FitzHugh Nagumo system 
+function fhn_εσ(ε, σ; save_everystep = false) # a convenient two-parameter version of the FitzHugh Nagumo system 
     # defining the StochSystem
     f(u,p,t) = fitzhugh_nagumo(u,p,t);
     β = 3; α = γ = κ = 1; I = 0; # standard parameters without ε (time-scale separation parameter)
@@ -67,7 +67,7 @@ function fhn_εσ(ε, σ) # a convenient two-parameter version of the FitzHugh N
     g = idfunc;
     pg = nothing; 
     Σ = [1 0; 0 1];
-    process = WienerProcess(0.,u);
+    process = WienerProcess(0.,u; save_everystep);
     StochSystem(f, vcat([ε], pf_wo_ε), u, σ, g, pg, Σ, process)
 end;
 
