@@ -77,7 +77,7 @@ A shortcut command for returning a StochSystem of the modified Truscott-Brindley
     
 This setup fixes the parameters β = 5/112, γ = 112/2.3625, P₁ = β, Z₁ = 5/6 and leaves the values of the parameters α and ξ as function arguments. The prescribed noise process is multiplicative and anisotropic: the first variable is peturbed by Gaussian white noise realisations that are multiplied by the variable's current value; the second variable has no stochastic component. The noise strength σ and correlation coefficient ρ are left as the remaining function arguments.
 """
-function modtb_αξσρ(α, ξ, σ, ρ) # a convenient four-parameter version of the modifiedtruscottbrindley system 
+function modtb_αξσρ(α, ξ, σ, ρ; save_everystep = false) # a convenient four-parameter version of the modifiedtruscottbrindley system 
     f(u,p,t) = modifiedtruscottbrindley(u,p,t);
     β = 5/112; γ = 112/(45*0.0525); P₁ = β; Z₁ = 5/6; # standard parameters without α (growth rate) and ξ (time-scale separation)
     pf_wo_αξ = [β, γ, P₁, Z₁]; # parameters vector without α or ξ
@@ -85,7 +85,7 @@ function modtb_αξσρ(α, ξ, σ, ρ) # a convenient four-parameter version of
     g(u,p,t) = [1/√ξ 0; 0 1.]*multiplicative_idx(u,p,t,[true,true]);
     pg = []; 
     Σ = [1. ρ; ρ 1.];
-    process = WienerProcess(0., u);
+    process = WienerProcess(0., u; save_everystep);
     StochSystem(f, Float64[[α];pf_wo_αξ;[ξ]], u, σ, g, pg, Σ, process)
 end;
 

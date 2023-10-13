@@ -16,6 +16,7 @@ function correlated_wienerprocess(sys::StochSystem)
     else
         W = CorrelatedWienerProcess(sys.Σ, 0.0, zeros(length(sys.u)))
     end
+    W.save_everystep = sys.process.save_everystep
     W
 end;
 
