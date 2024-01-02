@@ -44,7 +44,7 @@ Translates the stochastic process specified in `sys` into the language required 
 `SDEProblem` of `DynamicalSystems.jl`.
 """
 function stochprocess(sys::StochSystem)
-    if sys.Σ == I(length(sys.u)) # i.e. we can use the noise process sys.process directly
+    if sys.Σ == I(length(sys.process.u[1])) # i.e. we can use the noise process sys.process directly
         return sys.process
     else
         if sys.process.dist == DiffEqNoiseProcess.WHITE_NOISE_DIST # i.e. we have a Gaussian White Noise process
