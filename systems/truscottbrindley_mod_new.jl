@@ -1,4 +1,4 @@
-    """
+"""
 Dynamical systems specification file
 """
 
@@ -83,7 +83,7 @@ function modtb_αξσρ(α, ξ, σ, ρ; save_everystep = false) # a convenient f
     pf_wo_αξ = [β, γ, P₁, Z₁]; # parameters vector without α or ξ
     u = zeros(2);
     g(u,p,t) = [1/√ξ 0; 0 1.]*multiplicative_idx(u,p,t,[true,true]);
-    pg = nothing; 
+    pg = Vector{Float64}(undef,0); 
     Σ = [1. ρ; ρ 1.];
     process = WienerProcess(0., u; save_everystep);
     StochSystem(f, Float64[[α];pf_wo_αξ;[ξ]], u, σ, g, pg, Σ, process)
@@ -95,7 +95,7 @@ A shortcut command for returning a StochSystem of the modified Truscott-Brindley
     
 This setup fixes the parameters β = 5/112, γ = 112/2.3625, P₁ = β, Z₁ = 5/6 and leaves the values of the parameters α and ξ as function arguments. The prescribed noise process is multiplicative and anisotropic: the first variable is peturbed by Gaussian white noise realisations that are multiplied by the variable's current value; the second variable has no stochastic component. The noise strength σ is left as the remaining function argument.
 """
-function modtbOU_αξγμσρ(α, ξ, γ, μ, σ, ρ; pg = nothing, σₙ::Float64 = 1., u0::Vector{Float64} = [0.,0.], stat_dist::Bool = false, save_everystep = false) # a convenient five-parameter version of the modifiedtruscottbrindley system 
+function modtbOU_αξγμσρ(α, ξ, γ, μ, σ, ρ; pg = Vector{Float64}(undef,0), σₙ::Float64 = 1., u0::Vector{Float64} = [0.,0.], stat_dist::Bool = false, save_everystep = false) # a convenient five-parameter version of the modifiedtruscottbrindley system 
     f(u,p,t) = modifiedtruscottbrindley_OU_new(u,p,t);
     β = 5/112; γ1 = 112/(45*0.0525); P₁ = β; Z₁ = 5/6; # standard parameters without α (growth rate) and ξ (time-scale separation)
     pf_wo_αξ = [β, γ1, P₁, Z₁]; # parameters vector without α or ξ
