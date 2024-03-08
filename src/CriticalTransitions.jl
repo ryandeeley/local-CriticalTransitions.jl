@@ -74,7 +74,7 @@ export cov_inv_along_path
 export fitzhugh_nagumo, fitzhugh_nagumo!, fhn_εσ, fhn_ϵσ_backward, rotated_fhn_Aϵσ, fhn_maier_stein_form_ϵσ
 export modifiedtruscottbrindley, modifiedtruscottbrindley!, modtb_αξσ, modtb_αξσ1, modtb_αξσ_backward
 export modtb_αξσρ, modtbOU_αξγμσρ
-export modifiedtruscottbrindley_OU, modifiedtruscottbrindley_OU!, modtbOU_αξγμσ, modtbOU_αξγμσ2
+export modifiedtruscottbrindley_OU, modifiedtruscottbrindley_OU!, modtbOU_αξγμσ, modtbOU_αξγμσ2, modtbOU_na_αξγY₀¹Y₀², modtbOU_alt_αξγ
 export rampedmodifiedtruscottbrindley, modifiedtruscottbrindley!, rmodtb_ξvTtrTraσ
 export originaltruscottbrindley, originaltruscottbrindley!, origtb_rσ
 export rampedoriginaltruscottbrindley, rampedoriginaltruscottbrindley!, rorigtb_vTtrTraσ

@@ -1,5 +1,5 @@
 # Define custom types
-Parameters = Union{Vector{Float64}, Nothing};
+Parameters = Union{Vector{Float64}, Vector{Any}, Nothing};
 NoiseParameters = Union{Vector{Vector{Float64}}, Vector{Float64}, Vector{Any}};
 CovMatrix = Union{Matrix, UniformScaling{Bool}, Diagonal{Bool, Vector{Bool}}};
 State = Union{Vector, SVector}

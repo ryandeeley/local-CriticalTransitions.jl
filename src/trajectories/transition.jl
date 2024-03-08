@@ -853,7 +853,7 @@ function transitions_mf(sysfunc::Function, process_init::State, x_i::State, x_f:
         
         sim, simt, success = transition_mf(sysfunc, process_init, x_i, x_f;
                     rad_i, rad_f, rad_dims, tmax, dt, Ttrans,
-                    solver, progress=false, x_i_rem, kwargs...)
+                    solver, progress=false, kwargs...)
         
         if success 
             
@@ -862,7 +862,7 @@ function transitions_mf(sysfunc::Function, process_init::State, x_i::State, x_f:
             end
 
             if individual_save 
-                safesave(savepath,Dict("data"=>[sim,simt]))
+                safesave(savepath*"bridge_sample-$(j).jld2",Dict("State variables"=>sim,"Time values"=>simt))
             else
                 push!(samples, sim);
                 push!(times, simt);

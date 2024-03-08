@@ -90,7 +90,7 @@ function bisect_to_edge2(sys::StochSystem, u1::State, u2::State, attractors::Vec
     ϵ_mapper=0.1,
     dt_mapper=1.0e-3,
     solver=Vern9(),
-    maxit=1e+5,
+    maxit=100000,
     absto=1e-16,
     relto=1e-16,
     kwargs...)
@@ -100,7 +100,7 @@ function bisect_to_edge2(sys::StochSystem, u1::State, u2::State, attractors::Vec
     attrs = Dict(i => StateSpaceSet([attractors[i]]) for i in 1:length(attractors))
     pds = ParallelDynamicalSystem(odes, [u1, u2])
     #mapper = AttractorsViaProximity(odes, attrs, ϵ_mapper; Δt=dt_mapper, mx_chk_lost = maxit, kwargs...)
-    mapper = AttractorsViaProximity(odes, attrs, ϵ_mapper; Δt=dt_mapper, kwargs...)
+    mapper = AttractorsViaProximity(odes, attrs, ϵ_mapper; Δt=dt_mapper, consecutive_lost_steps = maxit, kwargs...)
 
 
     bisect_to_edge(pds, mapper, abstol=eps1)
