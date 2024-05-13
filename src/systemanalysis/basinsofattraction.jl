@@ -21,7 +21,7 @@ This function returns a four-dimensional vector. The first two entries are discr
 * `ϵ_mapper = 0.01`: `ϵ` parameter of [`AttractorsViaProximity`](https://juliadynamics.github.io/Attractors.jl/v1.2/attractors/#Attractors.AttractorsViaProximity)
 * `kwargs...`: keyword arguments passed to the [`AttractorsViaProximity`](https://juliadynamics.github.io/Attractors.jl/v1.2/attractors/#Attractors.AttractorsViaProximity) function (namely, `Ttr, Δt, horizon_limit, mx_chk_lost`)
 """ 
-function basins(sys::StochSystem, A, B, C, H; bstep::Vector = [0.01, 0.01], pstep::Vector = [0.1, 0.1], ϵ_mapper=0.01, kwargs...)
+function basins(sys::StochSystem, A, B, C, H; bstep::Vector = [0.01, 0.01], pstep::Vector = [0.1, 0.1], ϵ_mapper=0.01, diffeq = DynamicalSystemsBase.DEFAULT_DIFFEQ, kwargs...)
 
     U, V = plane(A, B, C, H; step = pstep); # the intervals for the maximal plane P_{U,V}
 
@@ -36,7 +36,7 @@ function basins(sys::StochSystem, A, B, C, H; bstep::Vector = [0.01, 0.01], pste
     # running the AttractorsViaProximity function using parallel computing
     @Threads.threads for ii ∈ tqdm(1:length(X))
         Z = [A+X[ii]*(B-A)+y*(C-A) for y ∈ Y]; # a row of initial conditions
-        h[:,ii] = AttractorsViaProximity(CoupledODEs(sys), attractors, ϵ_mapper; kwargs...).(Z)
+        h[:,ii] = AttractorsViaProximity(CoupledODEs(sys;diffeq), attractors, ϵ_mapper; kwargs...).(Z)
     end
 
     [X, Y, attractors, h]

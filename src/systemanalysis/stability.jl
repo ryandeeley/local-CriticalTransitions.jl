@@ -55,10 +55,11 @@ Returns fixed points, their eigenvalues and stability of the system `sys` within
 ## Additional methods
 * `fixedpoints(sys::StochSystem, box)`
 """
-function fixedpoints(sys::StochSystem, bmin::Vector, bmax::Vector)
+function fixedpoints(sys::StochSystem, bmin::Vector, bmax::Vector; 
+    kwargs...)
     box = intervals_to_box(bmin, bmax)
     jac(u,p,t) = ForwardDiff.jacobian((x) -> sys.f(x,p,t), u)
-    DynamicalSystems.fixedpoints(CoupledODEs(sys), box, jac)
+    DynamicalSystems.fixedpoints(CoupledODEs(sys), box, jac; kwargs...)
 end;
 
 function saddles_idx(fps::Tuple)
@@ -104,4 +105,4 @@ function attractors_idx(fps::Tuple)
         end
     end
     idx
-end
+end;

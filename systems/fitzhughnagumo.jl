@@ -65,7 +65,7 @@ function fhn_εσ(ε, σ; save_everystep = false) # a convenient two-parameter v
     pf_wo_ε = [β, α, γ, κ, I]; # parameter vector without ε
     u = zeros(2);
     g = idfunc;
-    pg = nothing; 
+    pg = Float64[]; 
     Σ = [1 0; 0 1];
     process = WienerProcess(0.,u; save_everystep);
     StochSystem(f, vcat([ε], pf_wo_ε), u, σ, g, pg, Σ, process)

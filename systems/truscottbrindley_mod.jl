@@ -168,7 +168,7 @@ function modtb_αξσ(α, ξ, σ) # a convenient three-parameter version of the 
     pf_wo_αξ = [β, γ, P₁, Z₁]; # parameters vector without α or ξ
     u = zeros(2);
     g(u,p,t) = [1/√ξ 0; 0 1.]*multiplicative_idx(u,p,t,[true,true]);
-    pg = nothing; 
+    pg = Float64[]; 
     Σ = [1. 0.; 0. 1.];
     process = WienerProcess(0., u);
     StochSystem(f, vcat([α], pf_wo_αξ, [ξ]), u, σ, g, pg, Σ, process)
