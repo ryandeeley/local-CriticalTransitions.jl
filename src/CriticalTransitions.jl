@@ -38,6 +38,7 @@ include("../systems/rooth.jl")
 include("../systems/stommel.jl")
 include("../systems/rivals.jl")
 include("../systems/comp.jl")
+include("../systems/proto.jl")
 include("../systems/double-well_potential.jl")
 
 include("../dev/fhn_pathspace_sampling.jl")
@@ -83,6 +84,7 @@ export originaltruscottbrindley1, originaltruscottbrindley1!, origtb1_rσ
 export rampedoriginaltruscottbrindley1, rampedoriginaltruscottbrindley1!, rorigtb1_vTtrTraσ
 export rivals!, rivals, rivals_ϵσ
 export comp_εσ, logcomp_εσ, twosqrtcomp_εσ
+export proto_ℓσ, proto_autonomous_λσ, smoothramp
 export rooth_smooth, stommel, cessi
 export cov_inv_along_path
 export dw_ησ

@@ -16,21 +16,21 @@ function comp(u,p,t)
     x, y = u
     α₁,α₂,β₁,β₂,ε = p[1]
 
-    dx = (x*(x-α₁)*(1-x)-β₁*x*y)/ε
-    dy = y*(y-α₂)*(1-y)-β₂*x*y
+    dx = (x*(x-α₁)*(1-x)-β₁*x*y);
+    dy = ε*(y*(y-α₂)*(1-y)-β₂*x*y)
 
     SA[dx, dy]
 end
 
-function comp_εσ(ε, σ; save_everystep::Bool = false, linear_diffusion::Bool = false) # a convenient two-parameter version of the COMP system 
+function comp_εσ(ε, σ; save_everystep::Bool = false, linear_diffusion::Bool = false, rng = nothing) # a convenient two-parameter version of the COMP system 
     f(u,p,t) = comp(u,p,t);
     α₁ = 0.1; α₂ = 0.3; β₁ = 0.18; β₂ = 0.1; # standard parameters without ε (time-scale separation parameter)
     pf = vcat([α₁,α₂,β₁,β₂],[ε]); # parameter vector
     u = zeros(2);
-    g(u,p,t) = linear_diffusion ? multiplicative_idx(u,p,t,[true,true]) : [√u[1] 0; 0 √u[2]]; 
-    pg = Float64[]; 
+    g(u,p,t) = linear_diffusion ? multiplicative_idx(u,p,t,[true,true]) : [√abs(u[1]); √abs(u[2])]; 
+    pg = Float64[0.,0.]; 
     Σ = I(2);
-    process = WienerProcess(0.,u; save_everystep);
+    process = isnothing(rng) ? WienerProcess(0.,u; save_everystep) : WienerProcess(0.,u; save_everystep, rng);
     StochSystem(f, pf, u, σ, g, pg, Σ, process)
 end;
 
@@ -52,7 +52,7 @@ function logcomp_εσ(ε, σ; save_everystep::Bool = false, linear_diffusion::Bo
     pf = vcat([α₁,α₂,β₁,β₂],[ε,σ]); # parameter vector
     u = zeros(2);
     g(u,p,t) = linear_diffusion ? idfunc : [exp(-u[1]/2); exp(-u[2]/2)]; 
-    pg = [0.]; 
+    pg = [0.,0.]; 
     Σ = I(2);
     process = WienerProcess(0.,u; save_everystep);
     StochSystem(f, pf, u, σ, g, pg, Σ, process)

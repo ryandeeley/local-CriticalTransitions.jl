@@ -24,7 +24,6 @@ function simulate(sys::StochSystem, init::State;
     solver=EM(),
     callback=nothing,
     progress=true,
-    seed=0,
     noise_rate_prototype=nothing,
     kwargs...)
 
